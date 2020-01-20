@@ -28,4 +28,21 @@ export class DeviceBrowserComponent implements OnInit {
       this.devices = [];
     }
   }
+
+  async getMediaFromDevice(deviceId: string) {
+    try {
+      let constraints = {
+        audio: true,
+        video: {
+          deviceId: deviceId
+        }
+      }
+
+      let stream = await this.navigator.mediaDevices.getUserMedia(constraints);
+      return stream;
+
+    } catch (e) {
+      throw e;
+    }
+  }
 }
