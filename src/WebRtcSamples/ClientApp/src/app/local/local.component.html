@@ -1,4 +1,14 @@
-<p>Select device:</p>
+<mat-card fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+  <mat-form-field fxFlex="40">
+    <mat-label>Select device:</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let device of devices" [value]="device.deviceId">
+        {{device.label}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
 
 <button (click)="startStream()">Connect to device</button>
 <button (click)="stopStream()">Stop Streaming</button>

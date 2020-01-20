@@ -14,6 +14,7 @@ export class LocalComponent implements OnInit {
 
   _navigator: Navigator;
   localStream;
+  permissionsGranted: boolean = false;
   devices: Array<MediaDeviceInfo>;
   error;
 
@@ -22,12 +23,25 @@ export class LocalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._navigator.mediaDevices.enumerateDevices()
-      .then((devices) => {
-        this.devices = devices;
-      })
-      .catch(function (err) {
+    this.grantPermissions()
+      .then(() => this.loadDevices());
+  }
+
+  async loadDevices() {
+    try {
+      this.devices = await this._navigator.mediaDevices.enumerateDevices();
+    } catch (e) {
+      this.error = e;
+      this.devices = [];
+    }
+  }
+
+  async grantPermissions(): Promise<boolean> {
+    return this._navigator.mediaDevices.getUserMedia(this._mediaStreamConstraints)
+      .then(() => true)
+      .catch((err) => {
         this.error = err;
+        return false;
       });
   }
 
@@ -44,6 +58,7 @@ export class LocalComponent implements OnInit {
         this.error = err;
       });
   }
+
   stopStream() {
     const tracks = this.localStream.getTracks();
     tracks.forEach((track) => {
