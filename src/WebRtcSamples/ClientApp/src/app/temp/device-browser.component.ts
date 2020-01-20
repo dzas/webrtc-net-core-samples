@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigatorRef } from '../navigator-ref/navigator-ref'
 
 @Component({
-  selector: 'app-local',
-  templateUrl: './local.component.html',
+  selector: 'device-browser',
+  templateUrl: './device-browser.component.html',
 })
 export class LocalComponent implements OnInit {
 

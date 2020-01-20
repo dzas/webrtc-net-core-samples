@@ -1,0 +1,19 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let device of devices">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{device.label}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-action-row>
+      <button  mat-raised-button color="primary">Get channel from device</button>
+    </mat-action-row>
+
+    <ng-template matExpansionPanelContent>
+      <p>deviceId: {{device.deviceId}} </p>
+      <p>groupId: {{device.groupId}} </p>
+      <p>kind: {{device.kind}} </p>
+    </ng-template>
+  </mat-expansion-panel>
+</mat-accordion>

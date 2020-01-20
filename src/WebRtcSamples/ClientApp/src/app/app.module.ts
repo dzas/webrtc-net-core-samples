@@ -7,14 +7,14 @@ import { RtcDemoModule } from './material-module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { LocalComponent } from './local/local.component';
+import { DeviceBrowserComponent } from './device-browser/device-browser.component';
 import { NavigatorRef } from './navigator-ref/navigator-ref';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LocalComponent
+    DeviceBrowserComponent
   ],
   imports: [
     RtcDemoModule,
@@ -22,7 +22,7 @@ import { NavigatorRef } from './navigator-ref/navigator-ref';
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'local', component: LocalComponent },
+      { path: 'devices', component: DeviceBrowserComponent },
     ])
   ],
   providers: [NavigatorRef],

@@ -1,5 +1,4 @@
 <mat-card fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-
   <mat-form-field fxFlex="40">
     <mat-label>Select device:</mat-label>
     <mat-select>
@@ -9,8 +8,3 @@
     </mat-select>
   </mat-form-field>
 </mat-card>
-
-<button (click)="startStream()">Connect to device</button>
-<button (click)="stopStream()">Stop Streaming</button>
-<video #hardwareVideo autoplay></video>
-<p>Video device not found.</p>
