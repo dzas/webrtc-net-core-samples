@@ -3,16 +3,22 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
 }
 
-code {
-  color: #e01a76;
+.toolbar-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+toolbar-container h1{
+  margin-left: 8px;
 }
+
