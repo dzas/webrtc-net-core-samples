@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let device of devices">
+  <mat-expansion-panel *ngFor="let device of devices" (closed)="onClose()">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{device.label}}
@@ -7,13 +7,35 @@
     </mat-expansion-panel-header>
 
     <mat-action-row>
-      <button  mat-raised-button color="primary">Get channel from device</button>
+      <button *ngIf="!isAttachMode" (click)="attach(device)" mat-raised-button color="primary">Attach to device media stream.</button>
+      <button *ngIf="isAttachMode" (click)="detach()" mat-raised-button color="primary">Detach from stream.</button>
     </mat-action-row>
 
     <ng-template matExpansionPanelContent>
       <p>deviceId: {{device.deviceId}} </p>
       <p>groupId: {{device.groupId}} </p>
       <p>kind: {{device.kind}} </p>
+      <div *ngIf="isAttachMode">
+        <video #videoElem autoplay="autoplay"></video>
+        <audio #audioElem autoplay="autoplay"></audio>
+        <div *ngIf="stream">
+          <p>stream info:</p>
+          <div *ngFor="let track of tracks">
+            <span>id: {{track.id}}</span>
+            <span>kind: {{track.kind}}</span>
+            <span>muted: {{track.muted}}</span>
+            <p>settings:</p>
+            <p>autoGainControl: {{trackSettings[track.id].autoGainControl}}</p>
+            <p>channelCount: {{trackSettings[track.id].channelCount}}</p>
+            <p>echoCancellation: {{trackSettings[track.id].echoCancellation}}</p>
+            <p>latency: {{trackSettings[track.id].latency}}</p>
+            <p>noiseSuppression: {{trackSettings[track.id].noiseSuppression}}</p>
+            <p>sampleRate: {{trackSettings[track.id].sampleRate}}</p>
+            <p>sampleSize: {{trackSettings[track.id].sampleSize}}</p>
+            <p>volume: {{trackSettings[track.id].autoGainControl}}</p>
+          </div>
+        </div>
+      </div>
     </ng-template>
   </mat-expansion-panel>
 </mat-accordion>
