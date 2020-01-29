@@ -8,13 +8,16 @@ import { RtcDemoModule } from './material-module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { DeviceBrowserComponent } from './device-browser/device-browser.component';
+import { MeetingComponent } from './meeting/meeting.component';
+
 import { NavigatorRef } from './navigator-ref/navigator-ref';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DeviceBrowserComponent
+    DeviceBrowserComponent,
+    MeetingComponent
   ],
   imports: [
     RtcDemoModule,
