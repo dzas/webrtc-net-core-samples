@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let device of devices" (closed)="onClose()">
+  <mat-expansion-panel *ngFor="let device of devices">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{device.label}}
@@ -7,17 +7,17 @@
     </mat-expansion-panel-header>
 
     <mat-action-row>
-      <button *ngIf="!isAttachMode" (click)="attach(device)" mat-raised-button color="primary">Attach to device media stream.</button>
-      <button *ngIf="isAttachMode" (click)="detach()" mat-raised-button color="primary">Detach from stream.</button>
+      <button *ngIf="!attachedDevice" [disabled]="device.kind == 'audiooutput' || device.kind == 'videooutput'" (click)="attach(device)" mat-raised-button color="primary">Attach to device media stream.</button>
+      <button *ngIf="attachedDevice" (click)="detach()" mat-raised-button color="primary">Detach from stream.</button>
     </mat-action-row>
 
     <ng-template matExpansionPanelContent>
       <p>deviceId: {{device.deviceId}} </p>
       <p>groupId: {{device.groupId}} </p>
       <p>kind: {{device.kind}} </p>
-      <div *ngIf="isAttachMode">
-        <video #videoElem autoplay="autoplay"></video>
-        <audio #audioElem autoplay="autoplay"></audio>
+      <div *ngIf="!!attachedDevice && device.deviceId == attachedDevice.deviceId">
+        <video #elem autoplay="autoplay" controls *ngIf="device.kind == 'videoinput'"></video>
+        <audio #elem autoplay="autoplay" controls *ngIf="device.kind == 'audioinput'"></audio>
         <div *ngIf="stream">
           <p>stream info:</p>
           <div *ngFor="let track of tracks">

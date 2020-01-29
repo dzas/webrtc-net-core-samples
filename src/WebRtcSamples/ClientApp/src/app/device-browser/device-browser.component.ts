@@ -8,17 +8,17 @@ import { Dictionary } from '../common/dictionary'
 })
 
 export class DeviceBrowserComponent implements OnInit, OnDestroy {
-  @ViewChild('videoElem', { static: false }) videoElem: ElementRef;
-  @ViewChild('audioElem', { static: false }) audioElem: ElementRef;
+  @ViewChild('elem', { static: false }) elem: ElementRef;
+  //@ViewChild('audioElem', { static: false }) audioElem: ElementRef;
 
   navigator: Navigator;
   permissionsGranted: boolean = false;
-  isAttachMode: boolean = false;
   devices: Array<MediaDeviceInfo>;
   error;
   stream: MediaStream;
   tracks: MediaStreamTrack[];
   trackSettings: Dictionary<MediaTrackSettings>;
+  attachedDevice: MediaDeviceInfo;
 
   constructor(navigatorRef: NavigatorRef, private changeDetectorRef: ChangeDetectorRef) {
     this.navigator = navigatorRef.navigator;
@@ -29,36 +29,23 @@ export class DeviceBrowserComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
-  }
-
-  onClose() {
-    this.isAttachMode = false
-    console.log("detaching");
+    if (this.attachedDevice) {
+      this.detach();
+    }
   }
 
   attach(device: MediaDeviceInfo): void {
-    this.isAttachMode = true;
+    this.attachedDevice = device;
     this.changeDetectorRef.detectChanges();
-    console.log(this.mediaElement(device.kind));
-    this.attachDeviceStream(device, this.mediaElement(device.kind));
+    console.log(this.elem.nativeElement);
+    this.attachDeviceStream(device, this.elem.nativeElement);
   }
 
   detach(): void {
     this.tracks.forEach((track) => {
       track.stop();
     });
-    this.isAttachMode = false;
-  }
-
-  mediaElement(deviceKind: MediaDeviceKind): HTMLMediaElement {
-    if (deviceKind == "audioinput") {
-      return this.audioElem.nativeElement as HTMLMediaElement;
-    } else if (deviceKind == "videoinput") {
-      return this.videoElem.nativeElement as HTMLMediaElement;
-    }
-
-    throw new Error("Only videoinput or audioinput devices are supported.")
+    this.attachedDevice = void 0;
   }
 
   async loadDevices() {
