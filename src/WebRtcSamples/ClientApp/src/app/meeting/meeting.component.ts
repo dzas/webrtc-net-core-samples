@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigatorRef } from '../navigator-ref/navigator-ref'
 
 @Component({
-  selector: 'remote-connection',
-  templateUrl: './remote-connection.component.html',
+  selector: 'meeting',
+  templateUrl: './meeting.component.html',
 })
 export class MeetingComponent implements OnInit {
 

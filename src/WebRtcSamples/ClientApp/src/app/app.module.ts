@@ -26,6 +26,7 @@ import { NavigatorRef } from './navigator-ref/navigator-ref';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'devices', component: DeviceBrowserComponent },
+      { path: 'meeting', component: MeetingComponent },
     ])
   ],
   providers: [NavigatorRef],
